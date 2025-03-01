@@ -1,0 +1,21 @@
+﻿Explanation of Changes I made to c4
+
+    1. I Added a new operator +* that calculates (x + x) * x. ( I made this operator, its not real)
+    2. I created a DUP opcode to duplicate the top value on the stack.
+    3. I updated the next() function to recognize +*.
+    4. I modified the expr() function to generate VM instructions for +*.
+    5. I extended the VM to support the DUP.
+These changes add a new operator and VM capability, so it increases the compiler functionality while still being able to maintain its simplicity.
+
+Effect this has on the Compiler Behavior
+    • The compiler now supports the +* operator, enabling calculations like 5 +* → (5 + 5) * 5 = 50.
+    • The DUP opcode allows efficient stack manipulation for operations requiring duplicate values.
+    • Existing functionality remains unchanged.
+
+Example:
+int main() {
+    int x = 5 +* 3; // gives you 50
+    printf("%d\n", x); 
+    return 0;
+}
+OUTPUT= 50
