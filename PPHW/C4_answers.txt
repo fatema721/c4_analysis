@@ -1,16 +1,0 @@
-﻿What is the purpose of the next() function, and how does it contribute to the compilation process? 
-The purpose of the next() function is that it performs lexical analysis by reading source code and converting it into tokens like for example keywords, identifiers, numbers. These tokens are passed to the parser, enabling the compiler to process the program structure.
-
-How does C4 handle symbol resolution (e.g., variables, functions)? 
-The C4 handles these by using a symbol table to manage variables and functions. It stores the identifiers with their types and memory locations, resolving references during compilation. Local variables are scoped, while global variables stay throughout the whole program.
-
-What are the limitations of C4 as a compiler? What features of C does it not support? 
-The C4 is meant to be a minimalistic program so lacks a few C features like:
-    • It has no preprocessor (#include, #define).
-    • It has limited types (no struct, union, or enum).
-    • It has no standard libraries (e.g., printf, malloc must be manually implemented).
-    • It has a manual memory management, which means it also has a risk for leaks.
-    • There are no advanced optimizations or error handling.
-
-How does C4 achieve self-hosting (i.e., compiling itself)? What are the implications of this  design? 
-The C4 can compile its own source code, so that means it’s self-hosting. This shows that the C4 is a simple program yet it is complete enough to handle some real-world programs, including itself. This    also makes the C4 more portable than others meaning you can compile it on one system and use that version to compile itself on another. And since the C4’s source code avoids features it doesn’t support, it stays consistent and reliable so you don’t get errors. In conclusion this self-hosting capability makes the C4 a great tool to learn how compilers work and the design makes it easy to do that.
