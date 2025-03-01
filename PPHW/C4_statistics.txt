@@ -1,0 +1,80 @@
+﻿** before I start I want to say that I tried to use multiple if the programs you gave and I has them all installed but they did not work on the code provided unless I edit some things so these statistics are all counted by me. Some of the ones I tried using were Doxygen which im not sure if it worked properly, and lizard, and Clang Static Analyzer .
+
+
+
+Cppcheck Analysis Report Cppcheck analysis of the code showed a few issues related to the incorrect use of format specifiers in printf statements. Here are some of the warnings:
+    1 Incorrect Format Specifier for signed long long Type: he printf function use the %d format specifier, which means it expects an int argument, but the arguments are type signed long long. This mismatch causes warningslike:
+        ◦ Line 59: printf("%d: unexpected eof in expression\n", line); where line is of type signed long long.
+        ◦ Line 66: printf("%d: open paren expected in sizeof\n", line); where line is of type signed long long.
+    2 Missing Standard Library Headers: Cppcheck shows that several standard library headers were missing, though these are okay because they are not supposed to be used in C4:
+        ◦ <stdio.h>
+        ◦ <stdlib.h>
+        ◦ <memory.h>
+        ◦ <unistd.h>
+        ◦ <fcntl.h>
+
+Lines of Code (LOC) for the Entire Program and Individual Functions:
+    • The file has 541 LOC.
+    • There are 3 main functions:
+        ◦ Void next(): 94 LOC
+        ◦ Void expr(): 149 LOC
+        ◦ Void smt(): 49 LOC
+    • Main: 198 LOC
+
+Number of Global Variables and Their Usage: There are 12 global variables:
+    1 char *p, *lp: p = current position in source code; lp = start of current line for printing.
+    2 char *data: Stores global variables and string literals.
+    3 int *e, *le: e = current position in generated code; le = end of code for printing.
+    4 int *id: Points to the current identifier in the symbol table.
+    5 int *sym: Symbol table for storing variables and functions.
+    6 int tk: Current token.
+    7 int ival: The value of the current token.
+    8 int ty: The type of the current expression (INT, CHAR, PTR).
+    9 int loc: Tracks local variable offsets in functions.
+    10 int line: The current line number in the source code.
+    11 int src: Flag for printing the source code and the assembly during execution.
+    12 int debug: Flag for debugging output for each instruction.
+
+Number of Unique Tokens and Their Frequency: There are 32 unique tokens. I counted these using Ctrl+F; sorry for any errors. The programs you linked did not all work for me, so I had to do some things on my own.
+    1 Num: 8
+    2 Fun: 3
+    3 Sys: 3
+    4 Glo: 3
+    5 Loc: 11
+    6 Id: 65
+    7 Char: 42
+    8 Else: 151
+    9 Enum: 9
+    10 If: 201
+    11 Int: 97
+    12 Return: 44
+    13 Sizeof: 20
+    14 While: 35
+    15 Assign: 13
+    16 Cond: 4
+    17 Lor: 3
+    18 Lan: 4
+    19 Or: 11
+    20 Xor: 10
+    21 And: 16
+    22 Eq: 10
+    23 Ne: 8
+    24 Lt: 10
+    25 Gt: 8
+    26 Le: 14
+    27 Ge: 8
+    28 Shl: 12
+    29 Shr: 8
+    30 Add: 17
+    31 Sub: 14
+    32 Mul: 20
+    33 Div: 9
+    34 Mod: 8
+    35 Inc: 18
+    36 Dec: 4
+    37 Brak: 3
+
+Memory Usage Patterns (e.g., Stack vs. Heap Allocation): Memory usage is split between heap and stack:
+    • Heap is used for persistent data like the symbol table, emitted code (text area), global variables (data area), and source code. Dynamic memory operations (malloc, free) are also handled in heaps.
+    • Stack is used to manage transient data like function calls, local variables, and intermediate results. The stack grows downward, with function frames managed by ENT (enter) and LEV (leave) instructions.
+Global variables are put in the heap, while local variables are put in the stack. Memory is initialized to zero, and the interpreter uses manual memory management without garbage collection. This ensures good handling of both persistent (heap) and transient (stack) data.
